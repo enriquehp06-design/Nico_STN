@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administración - Barbería</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            padding: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tbody tr {
+            transition: all 0.3s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+        }
+
+        .status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status.pendiente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.confirmada {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.cancelada {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status.completada {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏪 Panel de Administración</h1>
+            <p>Barbería NicoSTN Fade</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="totalReservas">0</h3>
+                <p>Total Reservas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="reservasHoy">0</h3>
+                <p>Reservas Hoy</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="reservasPendientes">0</h3>
+                <p>Pendientes</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="reservasCompletadas">0</h3>
+                <p>Completadas</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-group">
+                <label>Fecha:</label>
+                <input type="date" id="filtroFecha">
+            </div>
+            <div class="filter-group">
+                <label>Estado:</label>
+                <select id="filtroEstado">
+                    <option value="">Todos</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="confirmada">Confirmada</option>
+                    <option value="cancelada">Cancelada</option>
+                    <option value="completada">Completada</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="aplicarFiltros()">Aplicar Filtros</button>
+            <button class="btn btn-primary" onclick="limpiarFiltros()">Limpiar</button>
+        </div>
+
+        <div class="table-container">
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Cargando reservas...</p>
+            </div>
+            <table id="reservasTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Servicio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="reservasBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        let todasLasReservas = [];
+
+        async function cargarReservas() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('reservasTable').style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_URL}/reservas`);
+                if (!response.ok) throw new Error('Error al cargar reservas');
+                
+                todasLasReservas = await response.json();
+                mostrarReservas(todasLasReservas);
+                actualizarEstadisticas(todasLasReservas);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar las reservas. Verifica que el servidor esté corriendo.');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('reservasTable').style.display = 'table';
+            }
+        }
+
+        function mostrarReservas(reservas) {
+            const tbody = document.getElementById('reservasBody');
+            tbody.innerHTML = '';
+
+            if (reservas.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-message">No hay reservas para mostrar</td></tr>';
+                return;
+            }
+
+            reservas.forEach(reserva => {
+                const tr = document.createElement('tr');
+                const fecha = new Date(reserva.fecha).toLocaleDateString('es-ES');
+                const hora = reserva.hora.substring(0, 5);
+
+                tr.innerHTML = `
+                    <td>${reserva.id}</td>
+                    <td>${fecha}</td>
+                    <td>${hora}</td>
+                    <td>${reserva.nombre_cliente}</td>
+                    <td>${reserva.servicio || 'Corte de cabello'}</td>
+                    <td><span class="status ${reserva.estado}">${reserva.estado}</span></td>
+                    <td class="actions">
+                        ${reserva.estado !== 'completada' ? `
+                            <button class="btn btn-success" onclick="cambiarEstado(${reserva.id}, 'completada')">✓</button>
+                        ` : ''}
+                        ${reserva.estado !== 'cancelada' ? `
+                            <button class="btn btn-danger" onclick="eliminarReserva(${reserva.id})">✖</button>
+                        ` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function actualizarEstadisticas(reservas) {
+            const hoy = new Date().toISOString().split('T')[0];
+            
+            document.getElementById('totalReservas').textContent = reservas.length;
+            
+            const reservasHoy = reservas.filter(r => {
+                const fechaReserva = new Date(r.fecha).toISOString().split('T')[0];
+                return fechaReserva === hoy;
+            }).length;
+            document.getElementById('reservasHoy').textContent = reservasHoy;
+            
+            const pendientes = reservas.filter(r => r.estado === 'pendiente').length;
+            document.getElementById('reservasPendientes').textContent = pendientes;
+            
+            const completadas = reservas.filter(r => r.estado === 'completada').length;
+            document.getElementById('reservasCompletadas').textContent = completadas;
+        }
+
+        async function cambiarEstado(id, nuevoEstado) {
+            // Esta función requeriría un endpoint PUT en el servidor
+            alert(`Función para cambiar estado a "${nuevoEstado}" - ID: ${id}\nImplementa el endpoint PUT en el servidor.`);
+        }
+
+        async function eliminarReserva(id) {
+            if (!confirm('¿Estás seguro de que quieres eliminar esta reserva?')) return;
+
+            try {
+                const response = await fetch(`${API_URL}/reservas/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) throw new Error('Error al eliminar');
+
+                alert('Reserva eliminada exitosamente');
+                cargarReservas();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar la reserva');
+            }
+        }
+
+        function aplicarFiltros() {
+            const fechaFiltro = document.getElementById('filtroFecha').value;
+            const estadoFiltro = document.getElementById('filtroEstado').value;
+
+            let reservasFiltradas = [...todasLasReservas];
+
+            if (fechaFiltro) {
+                reservasFiltradas = reservasFiltradas.filter(r => {
+                    const fechaReserva = new Date(r.fecha).toISOString().split('T')[0];
+                    return fechaReserva === fechaFiltro;
+                });
+            }
+
+            if (estadoFiltro) {
+                reservasFiltradas = reservasFiltradas.filter(r => r.estado === estadoFiltro);
+            }
+
+            mostrarReservas(reservasFiltradas);
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('filtroFecha').value = '';
+            document.getElementById('filtroEstado').value = '';
+            mostrarReservas(todasLasReservas);
+        }
+
+        // Cargar reservas al inicio
+        cargarReservas();
+
+        // Actualizar cada 30 segundos
+        setInterval(cargarReservas, 30000);
+    </script>
+</body>
+</html>

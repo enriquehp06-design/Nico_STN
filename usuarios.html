@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Barbería NicoSTN Fade</title>
+  <meta name="description" content="Barbería NicoSTN Fade — Cortes clásicos y modernos en un ambiente profesional.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  
+
+</head>
+<body>
+  <header class="site-header">
+    <div >
+      <div class="brand">
+        <h1>Barberia NicoSTN Fade</h1>
+        <p class="tag">Barbería · Estilo · Low cost</p>
+      </div>
+      <nav>
+    
+
+    <div class="hamburguesa" id="hamburguesa">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="menu" id="menu">
+      <a href="#servicios">Servicios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#reservar">Reservar</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h2>Cortes clásicos y modernos</h2>
+          <p>En Barbería NicoSTN Fade te ofrecemos un servicio profesional, afeitados tradicionales y asesoría de estilo.</p>
+          <a class="btn" href="#reservar" style="background-color: #6fa06f; color: #fff;"">Reserva tu turno</a>
+        </div>
+        <div class="hero-image" aria-hidden="true">
+          <img src="S T N (1).png" style="border: 2px solid rgb(0, 0, 0);" alt="Barbería - barber working"/>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="container servicios">
+      <h3>Nuestros servicios</h3>
+      <div class="grid">
+        <article class="card">
+          <h4>Corte de cabello</h4>
+          <p><h3 style="color: blue;">5€</h3><h3>| solo efectivo<br><br> <img src="ahorrar-dinero.png" aria-label="Instagram" width="50px"></img></h3></p>
+        </article>
+        <article class="card">
+          <h4>Corte de cabello+Barba</h4>
+          <p><h3 style="color: blue;">8€</h3><h3>| solo efectivo <br><br> <img src="ahorrar-dinero.png" aria-label="Instagram" width="50px"></img> </h3></a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="galeria" class="container galeria">
+      <h3>Galería</h3>
+      <div class="grid gallery-grid">
+        <img class="gallery-item" src="corte1.png" alt="corte 1">
+        <img class="gallery-item" src="corte2.png" alt="corte 2">
+        <img class="gallery-item" src="corte3.png" alt="corte 3">
+      </div>
+    </section>
+
+    <section id="reservar" class="container reservar">
+      <h3>Reservar turno</h3>
+
+    <div class="container">
+        <div class="header">
+            <span style="font-size: 2rem;">📅</span>
+            <h1>Sistema de Reservas</h1>
+        </div>
+
+        <div class="main-grid">
+            <div class="calendar-section">
+                <div class="month-nav">
+                    <button id="prevMonth">◀</button>
+                    <h2 id="monthYear"></h2>
+                    <button id="nextMonth">▶</button>
+                </div>
+
+                <div class="day-names">
+                    <div class="day-name">Dom</div>
+                    <div class="day-name">Lun</div>
+                    <div class="day-name">Mar</div>
+                    <div class="day-name">Mié</div>
+                    <div class="day-name">Jue</div>
+                    <div class="day-name">Vie</div>
+                    <div class="day-name">Sáb</div>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+
+            <div class="reservations-section">
+                <h3>🕐 Reservas Activas</h3>
+                <div class="reservations-list" id="reservationsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="timeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="close-button" id="closeModal">✖</button>
+            </div>
+            <label for="clientName">Nombre del cliente</label>
+            <input type="text" class="cliente" id="clientName" placeholder="Nombre del cliente">
+            <div class="time-grid" id="timeGrid">
+            </div>
+        </div>
+    </div>
+<p id="bookingMsg" class="muted" aria-live="polite"></p>
+    </section>
+
+    <section id="contacto" class="container contacto">
+      <h3>Contacto</h3>
+      <p>Dirección: almendralejo<br>Tel: <a href="tel:+34644735110">+34 644 735 110</a></p>
+      <div class="map-placeholder">
+      <img src="peluqueria-pedro-cruz/fotos/mapa2.png" height="450" width="600">
+    </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Barbería NicoSTN Fade — Todos los derechos reservados</p>
+      <div class="social">
+        <a href="https://www.instagram.com/NicoSTN_fade/">
+        <img src="peluqueria-pedro-cruz/fotos/logotipo-de-instagram.png" aria-label="Instagram" width="30px"></img></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+        const monthNames = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        const timeSlots = [
+            '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+            '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
+            '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'
+        ];
+
+        let currentDate = new Date();
+        let selectedDay = null;
+        let reservedSlots = {};
+
+        function init() {
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('timeModal').addEventListener('click', (e) => {
+                if (e.target.id === 'timeModal') closeModal();
+            });
+
+            renderCalendar();
+            renderReservations();
+        }
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            document.getElementById('monthYear').textContent = `${monthNames[month]} ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            for (let i = 0; i < firstDay; i++) {
+                grid.appendChild(document.createElement('div'));
+            }
+
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const button = document.createElement('button');
+                button.className = 'day-button';
+                
+                const isToday = day === today.getDate() && 
+                               month === today.getMonth() && 
+                               year === today.getFullYear();
+                
+                if (isToday) button.classList.add('today');
+
+                const reservations = getDayReservations(day);
+                if (reservations > 0) {
+                    button.classList.add('has-reservations');
+                    button.innerHTML = `
+                        <span>${day}</span>
+                        <span class="reservation-badge">${reservations}</span>
+                    `;
+                } else {
+                    button.textContent = day;
+                }
+
+                button.addEventListener('click', () => openTimeModal(day));
+                grid.appendChild(button);
+            }
+        }
+
+        function getDayReservations(day) {
+            const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+            return reservedSlots[key] ? Object.keys(reservedSlots[key]).length : 0;
+        }
+
+        function openTimeModal(day) {
+            selectedDay = day;
+            document.getElementById('modalTitle').textContent = 
+                `Reservar - ${day}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+            document.getElementById('clientName').value = '';
+            
+            const timeGrid = document.getElementById('timeGrid');
+            timeGrid.innerHTML = '';
+
+            timeSlots.forEach(time => {
+                const button = document.createElement('button');
+                button.className = 'time-button';
+                button.textContent = time;
+                
+
+                const isReserved = isSlotReserved(day, time);
+                button.disabled = isReserved;
+
+                if (!isReserved) {
+                    button.addEventListener('click', () => makeReservation(time));
+                }
+
+                timeGrid.appendChild(button);
+            });
+
+            document.getElementById('timeModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('timeModal').classList.remove('active');
+        }
+
+        function isSlotReserved(day, time) {
+            const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+            return reservedSlots[key] && reservedSlots[key][time];
+        }
+
+        function makeReservation(time) {
+            const name = document.getElementById('clientName').value.trim();
+            if (!name) {
+                alert('Por favor, ingresa un nombre para la reserva');
+                return;
+            }
+
+            const key = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${selectedDay}`;
+            if (!reservedSlots[key]) reservedSlots[key] = {};
+            reservedSlots[key][time] = name;
+
+            closeModal();
+            renderCalendar();
+            renderReservations();
+        }
+
+        function cancelReservation(dateKey, time) {
+            if (reservedSlots[dateKey]) {
+                delete reservedSlots[dateKey][time];
+                if (Object.keys(reservedSlots[dateKey]).length === 0) {
+                    delete reservedSlots[dateKey];
+                }
+            }
+            renderCalendar();
+            renderReservations();
+        }
+
+        function renderReservations() {
+            const list = document.getElementById('reservationsList');
+            list.innerHTML = '';
+
+            const allReservations = [];
+            for (const dateKey in reservedSlots) {
+                for (const time in reservedSlots[dateKey]) {
+                    const [year, month, day] = dateKey.split('-');
+                    allReservations.push({
+                        dateKey,
+                        time,
+                        day,
+                        month: parseInt(month) + 1,
+                        year,
+                        name: reservedSlots[dateKey][time]
+                    });
+                }
+            }
+
+            allReservations.sort((a, b) => {
+                const dateA = new Date(a.year, a.month - 1, a.day);
+                const dateB = new Date(b.year, b.month - 1, b.day);
+                if (dateA.getTime() !== dateB.getTime()) return dateA - dateB;
+                return a.time.localeCompare(b.time);
+            });
+
+            if (allReservations.length === 0) {
+                list.innerHTML = '<div class="empty-message">No hay reservas aún</div>';
+                return;
+            }
+
+            allReservations.forEach(res => {
+                const item = document.createElement('div');
+                item.className = 'reservation-item';
+                item.innerHTML = `
+                    <div class="reservation-info">
+                        <p>${res.day}/${res.month}/${res.year} - ${res.name}</p>
+                        <p>${res.time}</p>
+                    </div>
+                    <button class="cancel-button">✖</button>
+                `;
+                item.querySelector('.cancel-button').addEventListener('click', () => {
+                    cancelReservation(res.dateKey, res.time);
+                });
+                list.appendChild(item);
+            });
+        }
+
+        init();
+    </script>
+  <script src="script.js"></script>
+</body>
+</html>
