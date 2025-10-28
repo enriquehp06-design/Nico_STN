@@ -157,6 +157,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })();
 
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fecha').setAttribute('min', today);
+
+        const servicios = {
+            'corte': 'Corte de pelo - 25€',
+            'tinte': 'Tinte - 45€',
+            'mechas': 'Mechas - 60€',
+            'peinado': 'Peinado - 30€',
+            'tratamiento': 'Tratamiento capilar - 40€',
+            'corte-barba': 'Corte + Barba - 35€'
+        };
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                servicio: servicios[document.getElementById('servicio').value],
+                fecha: document.getElementById('fecha').value,
+                hora: document.querySelector('input[name="hora"]:checked').value,
+                comentarios: document.getElementById('comentarios').value
+            };
+
+            const fechaFormateada = new Date(formData.fecha + 'T00:00:00').toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const detalles = `
+                <p><strong>Nombre:</strong> ${formData.nombre}</p>
+                <p><strong>Email:</strong> ${formData.email}</p>
+                <p><strong>Teléfono:</strong> ${formData.telefono}</p>
+                <p><strong>Servicio:</strong> ${formData.servicio}</p>
+                <p><strong>Fecha:</strong> ${fechaFormateada}</p>
+                <p><strong>Hora:</strong> ${formData.hora}</p>
+                ${formData.comentarios ? `<p><strong>Comentarios:</strong> ${formData.comentarios}</p>` : ''}
+            `;
+
+            document.getElementById('confirmationDetails').innerHTML = detalles;
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('confirmation').classList.add('show');
+        });
+
+        function newBooking() {
+            document.getElementById('bookingForm').reset();
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('confirmation').classList.remove('show');
+        }
+
     
 
 // Fin script.js
