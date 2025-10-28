@@ -80,53 +80,103 @@
     <section id="reservar" class="container reservar">
       <h3>Reservar turno</h3>
 
-    <div class="container">
-        <div class="header">
-            <span style="font-size: 2rem;">📅</span>
-            <h1>Sistema de Reservas</h1>
+    <div class="header">
+            <h1>✂️ Reserva tu Cita</h1>
+            <p>Agenda tu visita a la peluquería</p>
         </div>
 
-        <div class="main-grid">
-            <div class="calendar-section">
-                <div class="month-nav">
-                    <button id="prevMonth">◀</button>
-                    <h2 id="monthYear"></h2>
-                    <button id="nextMonth">▶</button>
+        <div class="form-container" id="formContainer">
+            <form  action="https://formspree.io/f/myzbeorl" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo <span class="required">*</span></label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: María García">
                 </div>
 
-                <div class="day-names">
-                    <div class="day-name">Dom</div>
-                    <div class="day-name">Lun</div>
-                    <div class="day-name">Mar</div>
-                    <div class="day-name">Mié</div>
-                    <div class="day-name">Jue</div>
-                    <div class="day-name">Vie</div>
-                    <div class="day-name">Sáb</div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
                 </div>
 
-                <div class="calendar-grid" id="calendarGrid"></div>
-            </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono <span class="required">*</span></label>
+                    <input type="tel" id="telefono" name="telefono" required placeholder="+34 600 000 000">
+                </div>
 
-            <div class="reservations-section">
-                <h3>🕐 Reservas Activas</h3>
-                <div class="reservations-list" id="reservationsList"></div>
-            </div>
-        </div>
-    </div>
+                <div class="form-group">
+                    <label for="servicio">Servicio <span class="required">*</span></label>
+                    <select id="servicio" name="servicio" required>
+                        <option value="">Selecciona un servicio</option>
+                        <option value="corte">Corte de pelo - 5€</option>
+                        <option value="corte-barba">Corte + Barba - 8€</option>
+                    </select>
+                </div>
 
-    <div class="modal" id="timeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle"></h3>
-                <button class="close-button" id="closeModal">✖</button>
-            </div>
-            <label for="clientName">Nombre del cliente</label>
-            <input type="text" class="cliente" id="clientName" placeholder="Nombre del cliente">
-            <div class="time-grid" id="timeGrid">
-            </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha <span class="required">*</span></label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Hora disponible <span class="required">*</span></label>
+                    <div class="time-slots">
+                        <div class="time-slot">
+                            <input type="radio" id="hora1" name="hora" value="09:00" required>
+                            <label for="hora1">09:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora2" name="hora" value="10:00">
+                            <label for="hora2">10:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora3" name="hora" value="11:00">
+                            <label for="hora3">11:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora4" name="hora" value="12:00">
+                            <label for="hora4">12:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora5" name="hora" value="13:00">
+                            <label for="hora5">13:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora6" name="hora" value="16:00">
+                            <label for="hora6">16:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora7" name="hora" value="17:00">
+                            <label for="hora7">17:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora8" name="hora" value="18:00">
+                            <label for="hora8">18:00</label>
+                        </div>
+                        <div class="time-slot">
+                            <input type="radio" id="hora9" name="hora" value="19:00">
+                            <label for="hora9">19:00</label>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    <label for="comentarios">Comentarios adicionales</label>
+                    <textarea id="comentarios" name="comentarios" placeholder="Déjanos saber si tienes alguna preferencia especial..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Confirmar Reserva</button>
+            </form>
         </div>
-    </div>
-<p id="bookingMsg" class="muted" aria-live="polite"></p>
+
+        <div class="confirmation" id="confirmation">
+            <div class="confirmation-icon">✅</div>
+            <h2>¡Reserva Confirmada!</h2>
+            <p>Hemos recibido tu solicitud de cita</p>
+            
+            <div class="confirmation-details" id="confirmationDetails"></div>
+            
+            <button class="new-booking-btn" onclick="newBooking()">Nueva Reserva</button>
+        </div>
+
     </section>
 
     <section id="contacto" class="container contacto">
